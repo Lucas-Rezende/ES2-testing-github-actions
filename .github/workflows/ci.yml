@@ -1,4 +1,4 @@
-name: Tests
+name: Testes Python
 
 on:
   push:
@@ -13,17 +13,26 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.11", "3.12"]
 
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+
     steps:
-      - name: Download code
+      - name: Baixar código
         uses: actions/checkout@v6
 
-      - name: Config environment
+      - name: Configurar Python
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run tests
-        run: pytest
+      - name: Conferir arquivos
+        run: |
+          python -c "import os; print(os.listdir())"
+
+      - name: Rodar testes
+        run: python -m pytest tests
