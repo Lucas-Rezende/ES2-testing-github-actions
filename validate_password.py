@@ -5,3 +5,6 @@ def is_password_valid(password):
     have_number = any(letter.isdigit() for letter in password)
 
     return have_caps and have_number
+
+def not_covered_code():
+    return true
